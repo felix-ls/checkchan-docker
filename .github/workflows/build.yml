@@ -12,18 +12,24 @@ jobs:
         echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
         sudo apt-get update
         sudo apt-get -y install docker-ce docker-ce-cli containerd.io docker-compose-plugin
-    - name: Clone 
+    - name: Docker buildx
+      run: |
+        echo ${{ secrets.PASSWORD }} | sudo docker login -u ${{ secrets.USERNAME }} --password-stdin
+        sudo docker run --privileged --rm tonistiigi/binfmt --install all
+        sudo docker buildx create --use --name mybuild
+        sudo docker buildx inspect mybuild --bootstrap
+   - name: Clone 
       run: |
         git clone https://github.com/easychen/checkchan-dist.git
-        cd checkchan-dist/docker
-        sed -i '1,4c FROM --platform=$TARGETPLATFORM alpine' Dockerfile
-        sed -i 's/RUN apk add --no-cache chromium/RUN apk add --no-cache chromium npm/g' Dockerfile
+        sed -i '1,4c FROM --platform=$TARGETPLATFORM alpine' checkchan-dist/docker/Dockerfile
+        sed -i 's/RUN apk add --no-cache chromium/RUN apk add --no-cache chromium npm/g' checkchan-dist/docker/Dockerfile
     - name: Docker 
       run: |
         echo ${{ secrets.PASSWORD }} | sudo docker login -u ${{ secrets.USERNAME }} --password-stdin
         sudo docker run --privileged --rm tonistiigi/binfmt --install all
         sudo docker buildx create --use --name mybuild
         sudo docker buildx inspect mybuild --bootstrap
-    - name: Build && push
+    - name: Build && Push
       run: |
+        cd checkchan-dist/docker
         sudo docker buildx build -t ${{ secrets.USERNAME }}/checkchan --platform=linux/arm64,linux/amd64 --push .

@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-18.04
     if: github.event.repository.owner.id == github.event.sender.id  # 自己点的 start
     steps:
-    - name: Installation depends
+    - name: Installation
       run: |
         sudo mkdir -p /etc/apt/keyrings
         curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
@@ -26,4 +26,4 @@ jobs:
         sudo docker buildx inspect mybuild --bootstrap
     - name: Build && push
       run: |
-        docker buildx build -t enticeu/checkchan --platform=linux/arm64,linux/amd64 --push .
+        sudo docker buildx build -t ${{ secrets.USERNAME }}/checkchan --platform=linux/arm64,linux/amd64 --push .

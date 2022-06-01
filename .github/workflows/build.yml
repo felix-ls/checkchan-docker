@@ -18,7 +18,7 @@ jobs:
         sudo docker run --privileged --rm tonistiigi/binfmt --install all
         sudo docker buildx create --use --name mybuild
         sudo docker buildx inspect mybuild --bootstrap
-   - name: Clone 
+    - name: Clone 
       run: |
         git clone https://github.com/easychen/checkchan-dist.git
         sed -i '1,4c FROM --platform=$TARGETPLATFORM alpine' checkchan-dist/docker/Dockerfile

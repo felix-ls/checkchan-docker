@@ -3,6 +3,8 @@ name: Build checkchan
 on:
   workflow_dispatch:
   repository_dispatch:
+    types:
+      - webhook
 
 env:
   USERNAME: ${{ secrets.USERNAME }}

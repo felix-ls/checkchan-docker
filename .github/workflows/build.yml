@@ -23,12 +23,6 @@ jobs:
         git clone https://github.com/easychen/checkchan-dist.git
         sed -i '1,4c FROM --platform=$TARGETPLATFORM alpine' checkchan-dist/docker/Dockerfile
         sed -i 's/RUN apk add --no-cache chromium/RUN apk add --no-cache chromium npm/g' checkchan-dist/docker/Dockerfile
-    - name: Docker 
-      run: |
-        echo ${{ secrets.PASSWORD }} | sudo docker login -u ${{ secrets.USERNAME }} --password-stdin
-        sudo docker run --privileged --rm tonistiigi/binfmt --install all
-        sudo docker buildx create --use --name mybuild
-        sudo docker buildx inspect mybuild --bootstrap
     - name: Build && Push
       run: |
         cd checkchan-dist/docker

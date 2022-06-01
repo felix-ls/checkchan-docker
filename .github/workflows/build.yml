@@ -1,8 +1,8 @@
 name: Build checkchan
 
 on:
-  repository_dispatch:
   workflow_dispatch:
+  repository_dispatch:
 
 env:
   USERNAME: ${{ secrets.USERNAME }}

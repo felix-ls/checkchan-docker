@@ -14,13 +14,13 @@ jobs:
         sudo apt-get -y install docker-ce docker-ce-cli containerd.io docker-compose-plugin
     - name: Clone 
       run: |
-        git clone https://hub.fastgit.xyz/easychen/checkchan-dist.git
+        git clone https://github.com/easychen/checkchan-dist.git
         cd checkchan-dist/docker
         sed -i '1,4c FROM --platform=$TARGETPLATFORM alpine' Dockerfile
         sed -i 's/RUN apk add --no-cache chromium/RUN apk add --no-cache chromium npm/g' Dockerfile
     - name: Docker 
       run: |
-        echo ${{ secrets.PASSWORD }} | sudo docker login -u "${{ secrets.USERNAME }}" --password-stdin
+        echo ${{ secrets.PASSWORD }} | sudo docker login -u ${{ secrets.USERNAME }} --password-stdin
         sudo docker run --privileged --rm tonistiigi/binfmt --install all
         sudo docker buildx create --use --name mybuild
         sudo docker buildx inspect mybuild --bootstrap

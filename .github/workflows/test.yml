@@ -27,6 +27,7 @@ jobs:
       
     - name: Docker buildx
       run: |
+        docker run --privileged --rm tonistiigi/binfmt --install all
         docker buildx create --use --name mybuild
         docker buildx inspect mybuild --bootstrap
         

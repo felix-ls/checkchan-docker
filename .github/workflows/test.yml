@@ -2,10 +2,6 @@ name: Build checkchan
 
 on:
   push
-#   workflow_dispatch:
-#   repository_dispatch:
-#     types:
-#       - webhook
   
 jobs:
   build:
@@ -20,12 +16,6 @@ jobs:
     - name: Docker Setup Buildx
       id: buildx
       uses: docker/setup-buildx-action@v2.0.0
-      
-#     - name: Docker buildx
-#       run: |
-#         docker run --privileged --rm tonistiigi/binfmt --install all
-#         docker buildx create --use --name mybuild
-#         docker buildx inspect mybuild --bootstrap
         
     - name: Clone 
       run: |
@@ -36,11 +26,8 @@ jobs:
       uses: docker/build-push-action@v3.0.0
       with:
         context: ./checkchan-dist/docker/
-        platforms: linux/amd64,linux/arm64
+        platforms: linux/amd64
         push: true
         tags: enticeu/checkchan:test
           
-#     - name: Build && Push
-#       run: |
-#         cd checkchan-dist/docker
-#         sudo docker buildx build -t enticeu/checkchan:test --platform=linux/arm64,linux/amd64 --push .
+          

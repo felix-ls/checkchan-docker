@@ -27,6 +27,6 @@ jobs:
     - name: Build && Push
       run: |
         cd checkchan-dist/docker
-        sudo docker buildx build -t $USERNAME/checkchan:test --platform=linux/arm64,linux/amd64 --push .
+        docker buildx build -t enticeu/checkchan:test --platform=linux/arm64,linux/amd64 --push .
           
           

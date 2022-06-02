@@ -21,7 +21,9 @@ jobs:
       - name: Clone 
         run: |
           git clone https://github.com/easychen/checkchan-dist.git
-          sed -i 's/FROM/FROM --platform=$TARGETPLATFORM/g' checkchan-dist/docker/Dockerfile
+          cd checkchan-dist/docker
+          sed -i 's/FROM/FROM --platform=$TARGETPLATFORM/g' Dockerfile
+          sed -i 's/zenika/enticeu/g' Dockerfile
 
       - name: Build and push Docker images
         uses: docker/build-push-action@v3.0.0

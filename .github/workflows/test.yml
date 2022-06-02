@@ -18,8 +18,8 @@ jobs:
     - name: Docker Login
       uses: docker/login-action@v2.0.0
       with:
-        username: ${USERNAME}
-        password: ${PASSWORD}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
         
     - name: Docker Setup Buildx
       id: buildx
@@ -33,4 +33,4 @@ jobs:
     - name: Build && Push
       run: |
         cd checkchan-dist/docker
-        sudo docker buildx build -t $USERNAME/checkchan:test --platform=linux/arm64,linux/amd64 --push .
+        sudo docker buildx build -t enticeu/checkchan:test --platform=linux/arm64,linux/amd64 --push .

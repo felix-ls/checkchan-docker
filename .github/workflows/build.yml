@@ -30,9 +30,9 @@ jobs:
     - name: Clone 
       run: |
         git clone https://github.com/easychen/checkchan-dist.git
-        sed -i '1,4c FROM --platform=$TARGETPLATFORM alpine' checkchan-dist/docker/Dockerfile
-        sed -i 's/RUN apk add --no-cache chromium/RUN apk add --no-cache chromium npm/g' checkchan-dist/docker/Dockerfile
+        sed -i 's/FROM/FROM --platform=$TARGETPLATFORM/g' checkchan-dist/docker/Dockerfile
+
     - name: Build && Push
       run: |
         cd checkchan-dist/docker
-        sudo docker buildx build -t $USERNAME/checkchan --platform=linux/arm64,linux/amd64 --push .
+        sudo docker buildx build -t $USERNAME/checkchan:$(date +%Y.%m.%d) --platform=linux/arm64,linux/amd64 --push .

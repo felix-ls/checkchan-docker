@@ -31,6 +31,12 @@ jobs:
           context: ./checkchan-dist/docker/
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: enticeu/checkchan:$(date +%F) enticeu/checkchan
+          tags: enticeu/checkchan
           
-          
+      - name: Build and push Docker images
+        uses: docker/build-push-action@v3.0.0
+        with:
+          context: ./checkchan-dist/docker/
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: enticeu/checkchan:$(date +%F) 

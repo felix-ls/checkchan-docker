@@ -34,9 +34,6 @@ jobs:
 #           tags: enticeu/checkchan
           
       - name: Build and push Docker images
-        uses: docker/build-push-action@v3.0.0
-        with:
-          context: ./checkchan-dist/docker/
-          platforms: linux/amd64
-          push: true
-          tags: enticeu/checkchan:$(date +%Y.%M.%D)
+        run: |
+          cd checkchan-dist/docker
+          docker buildx build -t enticeu/checkchan -t enticeu/checkchan:$(date +%F)  --platform=linux/amd64 --push .

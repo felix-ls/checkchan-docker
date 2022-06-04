@@ -31,6 +31,6 @@ jobs:
           context: ./checkchan-dist/docker/
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: enticeu/checkchan:$(date +%F),enticeu/checkchan
+          tags: enticeu/checkchan:$(date +%F) enticeu/checkchan
           
           

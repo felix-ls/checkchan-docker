@@ -22,7 +22,7 @@ jobs:
         run: |
           git clone https://github.com/easychen/checkchan-dist.git
           cd checkchan-dist/docker
-          sed -i 's/FROM node:16-alpine3.15/FROM --platform=$TARGETPLATFORM alpine/g' Dockerfile
+          sed -i '1c FROM --platform=$TARGETPLATFORM alpine' Dockerfile
           sed -i 's/apk add --no-cache/apk add --no-cache git npm/g' Dockerfile
 
       - name: Build and push Docker images

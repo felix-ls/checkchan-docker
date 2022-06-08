@@ -42,4 +42,4 @@ jobs:
       - name: Build and push Docker images
         run: |
           cd checkchan-dist/docker
-          docker buildx build -t enticeu/checkchan -t enticeu/checkchan:$(date +%F)  --platform=linux/amd64,linux/arm64 --push .
+          docker buildx build -t enticeu/checkchan:$(date +%F) -t enticeu/checkchan  --platform=linux/amd64,linux/arm64 --push .

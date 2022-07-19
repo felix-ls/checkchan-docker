@@ -31,15 +31,15 @@ jobs:
           sed -i '1c FROM --platform=$TARGETPLATFORM alpine' Dockerfile
           sed -i 's/apk add --no-cache/apk add --no-cache git npm/g' Dockerfile
 
-#       - name: Build and push Docker images
-#         uses: docker/build-push-action@v3.0.0
-#         with:
-#           context: ./checkchan-dist/docker/
-#           platforms: linux/amd64,linux/arm64
-#           push: true
-#           tags: enticeu/checkchan
-          
       - name: Build and push Docker images
-        run: |
-          cd checkchan-dist/docker
-          docker buildx build -t enticeu/checkchan:$(date +%F) -t enticeu/checkchan  --platform=linux/amd64,linux/arm64 --push .
+        uses: docker/build-push-action@v3.0.0
+        with:
+          context: ./checkchan-dist/docker/
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: enticeu/checkchan,enticeu/checkchan:$(date +%F)
+          
+#       - name: Build and push Docker images
+#         run: |
+#           cd checkchan-dist/docker
+#           docker buildx build -t enticeu/checkchan:$(date +%F) -t enticeu/checkchan  --platform=linux/amd64,linux/arm64 --push .
